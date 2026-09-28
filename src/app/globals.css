@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* Single-theme by design: a clinic ships one brand world, so there is no dark override.
+   Every surface paints its colour explicitly. */
+:root {
+  --plum: #43263f;
+  --plum-deep: #2c1829;
+  --plum-soft: #6e4c68;
+  --brass: #a87c4f;
+  --brass-lift: #c79a6a;
+  --blush: #f6f2f1;
+  --blush-deep: #ede3e4;
+  --surface: #ffffff;
+  --ink: #211a20;
+  --ink-soft: #6d5f6a;
+  --ink-faint: #9a8d96;
+  --line: #e4d9dc;
+  --ok: #2f6b52;
+}
+
+@theme inline {
+  --color-plum: var(--plum);
+  --color-plum-deep: var(--plum-deep);
+  --color-plum-soft: var(--plum-soft);
+  --color-brass: var(--brass);
+  --color-brass-lift: var(--brass-lift);
+  --color-blush: var(--blush);
+  --color-blush-deep: var(--blush-deep);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-ok: var(--ok);
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-karla), "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--blush);
+  color: var(--ink);
+  font-family: var(--font-karla), "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@utility site-wrap {
+  width: min(70rem, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+@utility kicker {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border: 1.5px solid transparent;
+    border-radius: 2px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .btn-primary { background: var(--plum); border-color: var(--plum); color: #fff; }
+  .btn-primary:hover { background: var(--plum-deep); border-color: var(--plum-deep); }
+  .btn-ghost { background: transparent; border-color: var(--line); color: var(--plum); }
+  .btn-ghost:hover { background: var(--surface); border-color: var(--plum); }
+  .btn-brass { background: var(--brass); border-color: var(--brass); color: #fff; }
+  .btn-brass:hover { background: #966e44; border-color: #966e44; }
+
+  /* Photo placeholders — replace with next/image once real photography arrives */
+  .plate { position: relative; overflow: hidden; border-radius: 2px; background: var(--blush-deep); }
+  .plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(67 38 63 / 0.055) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+  .plate-hero {
+    background:
+      radial-gradient(120% 90% at 78% 12%, #f0dfd2 0%, transparent 55%),
+      radial-gradient(95% 80% at 12% 88%, #d9c2d2 0%, transparent 60%),
+      linear-gradient(160deg, #5c3654 0%, #8c6383 48%, #c9a48f 100%);
+  }
+  .plate-plum { background: linear-gradient(165deg, #6e4c68 0%, #a88098 55%, #e4cbbc 100%); }
+  .plate-slate { background: linear-gradient(165deg, #3f4e5e 0%, #8496a6 55%, #e0cfc4 100%); }
+  .plate-sand { background: linear-gradient(165deg, #5a4a34 0%, #a08a6c 55%, #e6d8c6 100%); }
+
+  /* First-visit steps: numbered because the order is the point */
+  .steps { counter-reset: step; }
+  .step { counter-increment: step; position: relative; padding-top: 2.9rem; }
+  .step::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--brass);
+  }
+  @media (width >= 48rem) {
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 2.55rem;
+      left: 2.4rem;
+      right: 0;
+      height: 1px;
+      background: var(--line);
+    }
+  }
+
+  .faq summary { list-style: none; cursor: pointer; position: relative; padding: 1.15rem 2.5rem 1.15rem 0; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "";
+    position: absolute;
+    right: 0.45rem;
+    top: 1.5rem;
+    width: 11px;
+    height: 11px;
+    border-right: 1.5px solid var(--brass);
+    border-bottom: 1.5px solid var(--brass);
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+  }
+  .faq[open] summary::after { transform: rotate(-135deg); top: 1.75rem; }
+}
+
+/* Leave room for the fixed call bar on phones */
+@media (width < 40rem) {
+  body { padding-bottom: 3.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* Very large screens: scale the whole layout up proportionally instead of leaving a
+   narrow column floating in the middle. Breakpoints are unaffected — media queries
+   measure against the browser's default size, not this one. */
+@media (width >= 1800px) {
+  html { font-size: 112.5%; }
+}
+@media (width >= 2300px) {
+  html { font-size: 125%; }
+}
