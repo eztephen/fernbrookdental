@@ -1,5 +1,7 @@
 # Fernbrook Dental Studio
 
+**Live:** https://fernbrookdental.vercel.app
+
 Sample website for a boutique dental practice — booking-led, with published fees and an anxious-patient angle. Built as a portfolio piece to show prospective clinic clients.
 
 Next.js 16, React 19, Tailwind CSS v4, TypeScript.
