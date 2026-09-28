@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap justify-between gap-4 pt-5 text-[0.8rem] text-[#9A8195]">
           <span>
-            © {YEAR} {SITE.name}. A fictional practice, built as a design sample.
+            © {YEAR} {SITE.name}. A fictional practice — a design sample by <a href="https://eztephen.vercel.app" className="underline underline-offset-2 transition-colors hover:text-white">Eztephen Bacuño</a>.
           </span>
           <span>Privacy · Terms · Accessibility</span>
         </div>
